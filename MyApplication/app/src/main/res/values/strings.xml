@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">My Application</string>
+    <string name="this_is_text_of_the_privous_details">this is text of the privous details</string>
+    <string name="details">Details</string>
+    <string name="track">track</string>
+    <string name="title_activity_maps">Map</string>
+</resources>
