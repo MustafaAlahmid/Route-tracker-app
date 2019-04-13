@@ -9,7 +9,7 @@ import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
 
 class Users : AppCompatActivity() {
-
+        // variables  for the things we will use
     var myAuth = FirebaseAuth.getInstance()
     lateinit var btn:Button
     lateinit var text:TextView
@@ -18,12 +18,15 @@ class Users : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_users)
+
+        //connect the variables with their locations
         text = findViewById(R.id.txt)
         var myIntent:Intent = intent
         var myUserEmail = myIntent.getStringExtra("id")
         text.text = myUserEmail.toString()
 
         btn = findViewById(R.id.lobtn)
+        //making the sign out function
         btn.setOnClickListener {view ->
 
             Toast.makeText(this,"logging out ...",Toast.LENGTH_LONG).show()
@@ -36,6 +39,7 @@ class Users : AppCompatActivity() {
             }
         }
     }
+    //so simple
     fun signOut(){
 
         myAuth.signOut()
