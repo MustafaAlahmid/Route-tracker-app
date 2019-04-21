@@ -3,29 +3,35 @@ package com.example.firebase
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Button
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import com.google.firebase.auth.FirebaseAuth
+import kotlinx.android.synthetic.main.activity_users.*
 
 class Users : AppCompatActivity() {
         // variables  for the things we will use
+    //list view and logout button
     var myAuth = FirebaseAuth.getInstance()
     lateinit var btn:Button
-    lateinit var text:TextView
+    lateinit var listView: ListView
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_users)
 
+
+
         //connect the variables with their locations
-        text = findViewById(R.id.txt)
-        var myIntent:Intent = intent
-        var myUserEmail = myIntent.getStringExtra("id")
-        text.text = myUserEmail.toString()
+        listView = findViewById(R.id.list)
+        FirebaseAuth.getInstance().uid.toString()
+
+        var usersArray = arrayOf("a","b","c","d")
+
+
+        listView.adapter = ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,usersArray)
 
         btn = findViewById(R.id.lobtn)
+
         //making the sign out function
         btn.setOnClickListener {view ->
 
