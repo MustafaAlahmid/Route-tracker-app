@@ -3,17 +3,17 @@ package com.example.firebase
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.*
-import android.content.Intent
-import android.widget.*
 import com.google.firebase.auth.FirebaseAuth
-import kotlinx.android.synthetic.main.activity_users.*
+import com.google.firebase.database.*
 
 
 class Users : AppCompatActivity() {
 
-    private lateinit var listView: ListView
     var myAuth = FirebaseAuth.getInstance()
     lateinit var btn:Button
+    lateinit var ref:DatabaseReference
+    lateinit var usersList:MutableList<Users1>
+    lateinit var listView: ListView
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -21,19 +21,34 @@ class Users : AppCompatActivity() {
         setContentView(R.layout.activity_users)
 
 
+        usersList = mutableListOf()
         listView = findViewById(R.id.list)
-        val list = mutableListOf<Users1>()
-        list.add(Users1("mustafa", "azzurri", "spb"))
-        list.add(Users1("dsdvsd", "adsvsi", "spb"))
-        list.add(Users1("mustafa", "azzurri", "spb"))
+        ref = FirebaseDatabase.getInstance().getReference("users")
+        ref.addValueEventListener(object :ValueEventListener{
+            override fun onCancelled(p0: DatabaseError) {
 
-        val adapter = myAdapterList(this, R.layout.my_list_item, list)
-        listView.adapter = adapter
+            }
 
+            override fun onDataChange(p0: DataSnapshot) {
+                if (p0.exists()){
+                    usersList.clear()
+                    for (e in p0.children){
+                        val user = e.getValue(Users1::class.java)
+                        usersList.add(user!!)
+
+                    }
+                    val adapter = MyAdapterList(this@Users,R.layout.my_list_item, usersList)
+                    listView.adapter = adapter
+                }
+            }
+
+        })
+
+        //////////////////////////////
         btn = findViewById(R.id.lobtn)
 
         //making the sign out function
-        btn.setOnClickListener { view ->
+        btn.setOnClickListener {
 
             Toast.makeText(this, "logging out ...", Toast.LENGTH_LONG).show()
             myAuth.signOut()

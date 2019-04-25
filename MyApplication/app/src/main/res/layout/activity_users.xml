@@ -8,18 +8,24 @@
         tools:context=".Users">
 
     <Button
-            android:text="Log out"
+            android:text="@string/log_out"
             android:layout_width="128dp"
             android:layout_height="39dp"
             android:id="@+id/lobtn"
-            android:layout_marginBottom="4dp"
             app:layout_constraintBottom_toBottomOf="parent"
             android:layout_marginEnd="8dp" app:layout_constraintEnd_toEndOf="parent" android:layout_marginRight="8dp"
             android:layout_marginStart="8dp" app:layout_constraintStart_toStartOf="parent"
             android:layout_marginLeft="8dp" android:background="#3B3B3B" android:textSize="22sp"
-            android:textColor="@android:color/white" app:layout_constraintHorizontal_bias="0.498"/>
+            android:textColor="@android:color/white" app:layout_constraintHorizontal_bias="0.498"
+            android:layout_marginBottom="8dp"/>
     <ListView
-            android:layout_width="395dp"
-            android:layout_height="672dp" tools:layout_editor_absoluteY="8dp" tools:layout_editor_absoluteX="8dp"
-            android:layout_margin="8dp" android:id="@+id/list"/>
+            android:layout_width="375dp"
+            android:layout_height="613dp"
+            android:layout_margin="8dp" android:id="@+id/list"
+            app:layout_constraintStart_toStartOf="parent" android:layout_marginLeft="8dp"
+            android:layout_marginStart="8dp" app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            app:layout_constraintHorizontal_bias="0.478" app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginBottom="8dp" app:layout_constraintBottom_toTopOf="@+id/lobtn"
+            app:layout_constraintVertical_bias="0.486"/>
 </android.support.constraint.ConstraintLayout>

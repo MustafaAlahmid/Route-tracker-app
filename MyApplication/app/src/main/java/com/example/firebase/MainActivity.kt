@@ -9,6 +9,8 @@ import android.widget.EditText
 import android.widget.Toast
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
 
 class MainActivity : AppCompatActivity() {
     //we make variables for text views, buttons and for firebase authenticating
@@ -53,7 +55,7 @@ class MainActivity : AppCompatActivity() {
 
     }
     //function of sign in we pur parameters of email and password
-    private fun signIn(email:String,password: String){
+    private fun signIn(email:String,password: String) {
         Toast.makeText(this,"signing in ... ",Toast.LENGTH_LONG).show()
         myAuth.signInWithEmailAndPassword(email,password).addOnCompleteListener(this, OnCompleteListener { task ->
             if (task.isSuccessful) {
@@ -69,21 +71,38 @@ class MainActivity : AppCompatActivity() {
 
             })
     }
-
-            private fun signUp(email: String, password: String) {
+    // function to sign up and save the data in database
+    private fun signUp(email: String, password: String) {
 
                 myAuth.createUserWithEmailAndPassword(email, password)
                     .addOnCompleteListener(this, OnCompleteListener { task ->
                         if (task.isSuccessful) {
+
+
+                            val myDatabase:DatabaseReference = FirebaseDatabase.getInstance().getReference("users")
+                            val usersID:String = myDatabase.push().key.toString()
+                            val user = Users1(email,password,"hello")
+                            myDatabase.child(usersID).setValue(user).addOnCompleteListener {
+                                Toast.makeText(this,"saved",Toast.LENGTH_LONG).show()
+                            }
+
                             Toast.makeText(this, "done successfully !", Toast.LENGTH_LONG).show()
 
 
                         } else {
                             Toast.makeText(
-                                this, "somethig went wrong" + task.exception?.message
+                                this, "something went wrong" + task.exception?.message
                                 , Toast.LENGTH_LONG
                             ).show()
                         }
                     })
-            }}
+            }
+
+
+
+
+    }
+
+
+
 

@@ -9,7 +9,7 @@ import android.widget.TextView
 
 
 
-class myAdapterList(var mCtx: Context, var resorce:Int, var item: MutableList<Users1>)
+class MyAdapterList(var mCtx: Context, var resorce:Int, var item: MutableList<Users1>)
     : ArrayAdapter<Users1>(mCtx,resorce,item){
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
