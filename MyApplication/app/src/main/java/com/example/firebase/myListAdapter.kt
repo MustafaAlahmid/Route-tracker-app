@@ -16,14 +16,14 @@ class MyAdapterList(var mCtx: Context, var resorce:Int, var item: MutableList<Us
 
         val layoutInflater: LayoutInflater = LayoutInflater.from(mCtx)
         val view: View = layoutInflater.inflate(resorce,null)
-        var textView: TextView = view.findViewById(R.id.textView2)
-        val textView2: TextView = view.findViewById(R.id.textView1)
-        val textView3: TextView = view.findViewById(R.id.textView2)
+        val textView1: TextView = view.findViewById(R.id.textView1)
+        val textView2: TextView = view.findViewById(R.id.textView2)
+        val textView3: TextView = view.findViewById(R.id.textView3)
         val user: Users1 = item[position]
 
-        textView.text = user.firstName
-        textView2.text = user.lastName
-        textView3.text = user.address
+        textView1.text = user.email
+        textView2.text = user.Longitude.toString()
+        textView3.text = user.Latitude.toString()
 
 
 

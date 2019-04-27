@@ -81,7 +81,7 @@ class MainActivity : AppCompatActivity() {
 
                             val myDatabase:DatabaseReference = FirebaseDatabase.getInstance().getReference("users")
                             val usersID:String = myDatabase.push().key.toString()
-                            val user = Users1(email,password,"hello")
+                            val user = Users1(email,1f, 1f)
                             myDatabase.child(usersID).setValue(user).addOnCompleteListener {
                                 Toast.makeText(this,"saved",Toast.LENGTH_LONG).show()
                             }

@@ -1,7 +1,7 @@
 package com.example.firebase
 
 
-class Users1 (val firstName:String, val lastName:String, val address:String){
+class Users1 (val email:String, val Latitude:Float, val Longitude:Float){
 
-    constructor():this("","","")
+    constructor():this("",1f,1f)
 }
