@@ -69,39 +69,39 @@ class MainActivity : AppCompatActivity() {
                 ).show()
             }
 
-            })
+        })
     }
     // function to sign up and save the data in database
     private fun signUp(email: String, password: String) {
 
-                myAuth.createUserWithEmailAndPassword(email, password)
-                    .addOnCompleteListener(this, OnCompleteListener { task ->
-                        if (task.isSuccessful) {
+        myAuth.createUserWithEmailAndPassword(email, password)
+            .addOnCompleteListener(this, OnCompleteListener { task ->
+                if (task.isSuccessful) {
 
 
-                            val myDatabase:DatabaseReference = FirebaseDatabase.getInstance().getReference("users")
-                            val usersID:String = myDatabase.push().key.toString()
-                            val user = Users1(email,1f, 1f)
-                            myDatabase.child(usersID).setValue(user).addOnCompleteListener {
-                                Toast.makeText(this,"saved",Toast.LENGTH_LONG).show()
-                            }
+                    val myDatabase:DatabaseReference = FirebaseDatabase.getInstance().getReference("users")
+                    val usersID:String = myDatabase.push().key.toString()
+                    val user = Users1(email,"",1f, 1f)
+                    myDatabase.child(usersID).setValue(user).addOnCompleteListener {
+                        Toast.makeText(this,"saved",Toast.LENGTH_LONG).show()
+                    }
 
-                            Toast.makeText(this, "done successfully !", Toast.LENGTH_LONG).show()
-
-
-                        } else {
-                            Toast.makeText(
-                                this, "something went wrong" + task.exception?.message
-                                , Toast.LENGTH_LONG
-                            ).show()
-                        }
-                    })
-            }
+                    Toast.makeText(this, "done successfully !", Toast.LENGTH_LONG).show()
 
 
-
-
+                } else {
+                    Toast.makeText(
+                        this, "something went wrong" + task.exception?.message
+                        , Toast.LENGTH_LONG
+                    ).show()
+                }
+            })
     }
+
+
+
+
+}
 
 
 

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                                             xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+                                             android:layout_height="match_parent">
+
+    <TextView
+            android:text="longTude"
+            android:layout_width="250dp"
+            android:layout_height="35dp"
+            android:id="@+id/longtude"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/time"
+    />
+    <TextView
+            android:text="lateTude"
+            android:layout_width="250dp"
+            android:layout_height="35dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:id="@+id/late"
+            app:layout_constraintTop_toTopOf="parent"/>
+    <TextView
+            android:text="tmei"
+            android:layout_width="250dp"
+            android:layout_height="35dp"
+            android:id="@+id/time"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/late"/>
+    <TextView
+            android:text="User"
+            android:layout_width="150dp"
+            android:layout_height="104dp"
+            android:id="@+id/user" app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+    />
+</android.support.constraint.ConstraintLayout>

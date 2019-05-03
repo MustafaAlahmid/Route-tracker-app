@@ -1,10 +1,14 @@
 package com.example.firebase
 
+import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.*
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
+import kotlinx.android.synthetic.main.activity_user_details.view.*
+import kotlinx.android.synthetic.main.activity_users.*
+import java.io.Serializable
 
 
 class Users : AppCompatActivity() {
@@ -39,10 +43,17 @@ class Users : AppCompatActivity() {
                     }
                     val adapter = MyAdapterList(this@Users,R.layout.my_list_item, usersList)
                     listView.adapter = adapter
+
                 }
             }
 
         })
+
+        listView.setOnItemClickListener { parent, view, position, id ->
+            val us1 = usersList.get(position).email
+
+            startActivity(Intent(this,user_details::class.java).putExtra("info",us1))
+        }
 
         //////////////////////////////
         btn = findViewById(R.id.lobtn)
