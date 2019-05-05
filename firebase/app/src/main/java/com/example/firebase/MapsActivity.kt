@@ -9,6 +9,7 @@ import android.location.LocationManager
 import android.os.Build
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.os.CountDownTimer
 import android.support.v4.app.ActivityCompat
 import android.widget.Toast
 
@@ -18,15 +19,26 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
+import com.google.firebase.database.FirebaseDatabase
 import java.lang.Exception
+import java.lang.ref.Reference
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DatabaseReference
+import java.text.SimpleDateFormat
+import java.util.*
 
 class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
+    val sdf = SimpleDateFormat(" hh:mm:ss")
+    val currentDate = sdf.format(Date())
+
     private lateinit var mMap: GoogleMap
+    private lateinit var database: DatabaseReference
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_maps)
+
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         val mapFragment = supportFragmentManager
             .findFragmentById(R.id.map) as SupportMapFragment
@@ -70,7 +82,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
         val mylocation = myLocarionListenr()
         val locationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
-        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,3,3f, mylocation)
+        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,3,15f, mylocation)
 
         Toast.makeText(this,"access user location",Toast.LENGTH_LONG).show()
 
@@ -96,6 +108,8 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
     }
     var myLocation:Location?= null
     inner class myLocarionListenr: LocationListener {
+        val us4 = intent.getStringExtra("user")
+
         constructor(){
             myLocation = Location("me")
             myLocation!!.longitude = 0.0
@@ -103,6 +117,15 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         }
         override fun onLocationChanged(location: Location?) {
             myLocation = location
+            val longtude = myLocation!!.longitude
+            val latetude = myLocation!!.latitude
+
+            val myDatabase:DatabaseReference = FirebaseDatabase.getInstance().getReference("$us4's locations")
+            val user = userLoc(currentDate,longtude.toString(),latetude.toString())
+            myDatabase.child(user.time).setValue(user).addOnCompleteListener {
+                Toast.makeText(this@MapsActivity,"saved",Toast.LENGTH_LONG).show()
+            }
+
         }
 
         override fun onStatusChanged(provider: String?, status: Int, extras: Bundle?) {
@@ -114,7 +137,12 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         override fun onProviderDisabled(provider: String?) {
         }
     }
+
+
     inner class MyThread:Thread{
+        //the us4 to take the username for the location
+        val us4 = intent.getStringExtra("user")
+
         constructor():super(){
             //TODO
         }
@@ -125,9 +153,9 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                 runOnUiThread{
                     mMap!!.clear()
                     // Add a marker in Sydney and move the camera
-                    val sydney = LatLng(myLocation!!.latitude, myLocation!!.longitude)
-                    mMap!!.addMarker(MarkerOptions().position(sydney).title("User"))
-                    mMap!!.moveCamera(CameraUpdateFactory.newLatLng(sydney))
+                    var sydney = LatLng(myLocation!!.latitude, myLocation!!.longitude)
+                    mMap!!.addMarker(MarkerOptions().position(sydney).title(us4))
+                    mMap!!.moveCamera(CameraUpdateFactory.newLatLngZoom(sydney,14f))
 
                 }
 
@@ -135,10 +163,12 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                     sleep(1000)
                 }catch (e:Exception){}
 
-
-
             }
         }
     }
+
 }
+class userLoc(val time:String, val long:String, val late:String)
+
+
 

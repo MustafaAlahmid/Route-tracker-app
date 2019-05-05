@@ -17,6 +17,7 @@ class MainActivity : AppCompatActivity() {
     var myAuth = FirebaseAuth.getInstance()
     lateinit var editText:EditText
     lateinit var editText2:EditText
+    lateinit var editText3: EditText
     lateinit var btn:Button
     lateinit var btn1:Button
 
@@ -28,6 +29,7 @@ class MainActivity : AppCompatActivity() {
         //we connect the variables to their id
         editText = findViewById(R.id.Email)
         editText2 = findViewById(R.id.password)
+        editText3 = findViewById(R.id.usertext)
         btn = findViewById(R.id.regester)
         btn1 = findViewById(R.id.signin)
 
@@ -37,30 +39,33 @@ class MainActivity : AppCompatActivity() {
             //variables of email and password
             val email = editText.text.toString().trim()
             val pass = editText2.text.toString().trim()
+            val name = editText3.text.toString().trim()
             if (email.isEmpty().or(pass.isEmpty())){
                 //toast to show that if something wrong
                 Toast.makeText(this,"please enter email",Toast.LENGTH_LONG).show()
                 return@setOnClickListener
             }
-            signUp(email,pass)
+            signUp(email,pass,name)
         }
         //we do the same but another button for sign in
         btn1.setOnClickListener {
             val email = editText.text.toString().trim()
             val pass = editText2.text.toString().trim()
+            val name:String = editText3.text.toString().trim()
 
 
-            signIn(email,pass)
+            signIn(email,pass,name)
         }
 
     }
     //function of sign in we pur parameters of email and password
-    private fun signIn(email:String,password: String) {
+    private fun signIn(email:String,password: String,name: String) {
         Toast.makeText(this,"signing in ... ",Toast.LENGTH_LONG).show()
         myAuth.signInWithEmailAndPassword(email,password).addOnCompleteListener(this, OnCompleteListener { task ->
             if (task.isSuccessful) {
-                var intent = Intent(this, Users::class.java)
-                intent.putExtra("id", myAuth.currentUser?.email)
+
+                var intent = Intent(this, user_details::class.java)
+                intent.putExtra("id",name)
                 startActivity(intent)
             } else {
                 Toast.makeText(
@@ -72,7 +77,7 @@ class MainActivity : AppCompatActivity() {
         })
     }
     // function to sign up and save the data in database
-    private fun signUp(email: String, password: String) {
+    private fun signUp(email: String, password: String, name:String) {
 
         myAuth.createUserWithEmailAndPassword(email, password)
             .addOnCompleteListener(this, OnCompleteListener { task ->
@@ -80,9 +85,8 @@ class MainActivity : AppCompatActivity() {
 
 
                     val myDatabase:DatabaseReference = FirebaseDatabase.getInstance().getReference("users")
-                    val usersID:String = myDatabase.push().key.toString()
-                    val user = Users1(email,"",1f, 1f)
-                    myDatabase.child(usersID).setValue(user).addOnCompleteListener {
+                    val user = Users1(email,name)
+                    myDatabase.child(user.name).setValue(user).addOnCompleteListener {
                         Toast.makeText(this,"saved",Toast.LENGTH_LONG).show()
                     }
 

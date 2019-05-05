@@ -23,7 +23,7 @@ class user_details : AppCompatActivity() {
         setContentView(R.layout.activity_user_details)
 
         textView = findViewById(R.id.username)
-        val us2 = intent.getStringExtra("info")
+        val us2 = intent.getStringExtra("id")
         textView.text = us2
 
 
@@ -32,11 +32,11 @@ class user_details : AppCompatActivity() {
 
 
         button.setOnClickListener {
-            startActivity(Intent(this,MapsActivity::class.java))
+            startActivity(Intent(this,MapsActivity::class.java).putExtra("user",us2))
         }
 
         button1.setOnClickListener {
-            startActivity(Intent(this,details::class.java).putExtra("id",us2))
+            startActivity(Intent(this,Users::class.java).putExtra("user",us2))
         }
 
 

@@ -25,6 +25,7 @@ class Users : AppCompatActivity() {
         setContentView(R.layout.activity_users)
 
 
+
         usersList = mutableListOf()
         listView = findViewById(R.id.list)
         ref = FirebaseDatabase.getInstance().getReference("users")
@@ -50,9 +51,9 @@ class Users : AppCompatActivity() {
         })
 
         listView.setOnItemClickListener { parent, view, position, id ->
-            val us1 = usersList.get(position).email
+            val us1 = usersList.get(position).name
 
-            startActivity(Intent(this,user_details::class.java).putExtra("info",us1))
+            startActivity(Intent(this,details::class.java).putExtra("id",us1))
         }
 
         //////////////////////////////

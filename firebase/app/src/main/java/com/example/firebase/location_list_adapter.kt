@@ -9,19 +9,22 @@ import android.widget.TextView
 
 
 
-class MyAdapterList(var mCtx: Context, var resorce:Int, var item: MutableList<Users1>)
-    : ArrayAdapter<Users1>(mCtx,resorce,item){
+class locationListAdapter (var mCtx: Context, var resorce:Int, var item: MutableList<ll>)
+    : ArrayAdapter<ll>(mCtx,resorce,item){
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
 
         val layoutInflater: LayoutInflater = LayoutInflater.from(mCtx)
         val view: View = layoutInflater.inflate(resorce,null)
-        val textView1: TextView = view.findViewById(R.id.textView1)
-        val textView2: TextView = view.findViewById(R.id.textView2)
-        val user: Users1 = item[position]
+        val textView: TextView = view.findViewById(R.id.longlist)
+        val textView2: TextView = view.findViewById(R.id.latelist)
 
-        textView1.text = user.email
-        textView2.text = user.name
+        val user: ll = item[position]
+
+        textView.text = user.long.toString()
+        textView2.text = user.late.toString()
+
+
 
 
 
@@ -30,3 +33,4 @@ class MyAdapterList(var mCtx: Context, var resorce:Int, var item: MutableList<Us
         return view
     }
 }
+class ll(val late:String, val long:String)

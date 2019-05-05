@@ -16,10 +16,11 @@
             android:ems="10"
             android:id="@+id/Email" android:layout_marginStart="8dp"
             app:layout_constraintStart_toStartOf="parent" android:layout_marginLeft="8dp" android:layout_marginEnd="8dp"
-            app:layout_constraintEnd_toEndOf="parent" android:layout_marginRight="8dp" android:layout_marginTop="136dp"
+            app:layout_constraintEnd_toEndOf="parent" android:layout_marginRight="8dp" android:layout_marginTop="52dp"
             app:layout_constraintTop_toTopOf="parent"
             android:textSize="22sp" android:textColor="@android:color/white" android:textStyle="bold"
-            android:autoText="true" android:textAllCaps="false" android:background="#3B3B3B"/>
+            android:autoText="true" android:textAllCaps="false" android:background="#3B3B3B"
+            app:layout_constraintHorizontal_bias="0.505"/>
     <EditText
             android:layout_width="300dp"
             android:layout_height="75dp"
@@ -29,10 +30,10 @@
             app:layout_constraintStart_toStartOf="parent" android:layout_marginLeft="8dp"
             android:layout_marginStart="8dp" app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp"
             android:layout_marginRight="8dp"
-            app:layout_constraintTop_toBottomOf="@+id/Email"
-            android:layout_marginTop="44dp"
             android:background="#3B3B3B" android:textColor="@android:color/white" android:textSize="22sp"
-            android:autoText="false" android:text="123456"/>
+            android:autoText="false" android:text="123456"
+            app:layout_constraintHorizontal_bias="0.494"
+            android:layout_marginTop="44dp" app:layout_constraintTop_toBottomOf="@+id/usertext"/>
     <Button
             android:text="Regestir"
             android:layout_width="120dp"
@@ -56,5 +57,17 @@
             app:layout_constraintHorizontal_bias="0.498" android:layout_marginTop="56dp"
             app:layout_constraintTop_toBottomOf="@+id/password" android:background="#3B3B3B"
             android:textColor="@android:color/white" android:textSize="22sp"/>
+    <EditText
+            android:layout_width="300dp"
+            android:layout_height="75dp"
+            android:inputType="textPersonName"
+            android:text="leti"
+            android:ems="10"
+            android:id="@+id/usertext" android:layout_marginEnd="8dp"
+            app:layout_constraintEnd_toEndOf="parent" android:layout_marginRight="8dp" android:layout_marginStart="8dp"
+            app:layout_constraintStart_toStartOf="parent" android:layout_marginLeft="8dp"
+            android:layout_marginTop="36dp"
+            app:layout_constraintTop_toBottomOf="@+id/Email" android:background="#3B3B3B"
+            android:textColor="@android:color/white" android:textSize="24sp" android:textStyle="bold"/>
 
 </android.support.constraint.ConstraintLayout>
