@@ -13,7 +13,7 @@ import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 
 class MainActivity : AppCompatActivity() {
-    //we make variables for text views, buttons and for firebase authenticating
+    // variables for text views, buttons and for firebase authenticating
     var myAuth = FirebaseAuth.getInstance()
     lateinit var editText:EditText
     lateinit var editText2:EditText

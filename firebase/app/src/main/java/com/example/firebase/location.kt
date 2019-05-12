@@ -8,7 +8,7 @@ import com.google.firebase.database.*
 class location : AppCompatActivity() {
 
     lateinit var listView: ListView
-    lateinit var usersList:MutableList<ll>
+    lateinit var usersList1:MutableList<userLoc>
     lateinit var ref: DatabaseReference
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -16,10 +16,10 @@ class location : AppCompatActivity() {
         setContentView(R.layout.activity_location)
 
         val name = intent.getStringExtra("name")
-        val time  =intent.getStringExtra("time")
+        val time  =intent.getStringExtra("time").toString()
 
         listView = findViewById(R.id.listw)
-        usersList = mutableListOf()
+        usersList1 = mutableListOf()
         ref = FirebaseDatabase.getInstance().getReference("$name's locations").child(time)
         ref.addValueEventListener(object : ValueEventListener {
             override fun onCancelled(p0: DatabaseError) {
@@ -28,13 +28,13 @@ class location : AppCompatActivity() {
 
             override fun onDataChange(p0: DataSnapshot) {
                 if (p0.exists()){
-                    usersList.clear()
+                    usersList1.clear()
                     for (e in p0.children){
-                        val user = e.getValue(ll::class.java)
-                        usersList.add(user!!)
+                        val user = e.getValue(userLoc::class.java)
+                        usersList1.add(user!!)
 
                     }
-                    val adapter = locationListAdapter(this@location,R.layout.locationlist,usersList)
+                    val adapter = locationListAdapter(this@location,R.layout.locationlist,usersList1)
                     listView.adapter = adapter
 
                 }

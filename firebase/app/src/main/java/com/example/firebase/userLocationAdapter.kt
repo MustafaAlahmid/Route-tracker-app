@@ -17,9 +17,11 @@ class userLocationAdapter (var mCtx: Context, var resorce:Int, var item: Mutable
         val layoutInflater: LayoutInflater = LayoutInflater.from(mCtx)
         val view: View = layoutInflater.inflate(resorce,null)
         val textView3: TextView = view.findViewById(R.id.lateview)
+
         val user: uls = item[position]
 
         textView3.text = user.time
+
 
 
 

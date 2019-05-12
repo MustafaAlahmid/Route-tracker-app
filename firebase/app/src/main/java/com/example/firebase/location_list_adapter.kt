@@ -9,8 +9,8 @@ import android.widget.TextView
 
 
 
-class locationListAdapter (var mCtx: Context, var resorce:Int, var item: MutableList<ll>)
-    : ArrayAdapter<ll>(mCtx,resorce,item){
+class locationListAdapter (var mCtx: Context, var resorce:Int, var item: MutableList<userLoc>)
+    : ArrayAdapter<userLoc>(mCtx,resorce,item){
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
 
@@ -19,7 +19,7 @@ class locationListAdapter (var mCtx: Context, var resorce:Int, var item: Mutable
         val textView: TextView = view.findViewById(R.id.longlist)
         val textView2: TextView = view.findViewById(R.id.latelist)
 
-        val user: ll = item[position]
+        val user: userLoc = item[position]
 
         textView.text = user.long.toString()
         textView2.text = user.late.toString()
@@ -33,4 +33,3 @@ class locationListAdapter (var mCtx: Context, var resorce:Int, var item: Mutable
         return view
     }
 }
-class ll(val late:String, val long:String)
